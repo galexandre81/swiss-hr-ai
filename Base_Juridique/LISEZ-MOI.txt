@@ -1,0 +1,15 @@
+DOSSIER : Base Juridique
+=========================
+
+Déposez dans ce dossier les PDF des textes juridiques suisses que
+l'Assistant Juridique doit pouvoir interroger.
+
+Exemples de fichiers recommandés :
+- CO_Code_Obligations.pdf
+- LTr_Loi_sur_le_Travail.pdf
+- LPP_Prevoyance_Professionnelle.pdf
+- CCT_Horlogerie.pdf (ou votre CCT de branche)
+
+APRÈS avoir ajouté ou remplacé un PDF, cliquez sur le bouton
+"Réindexer la base juridique" dans les Paramètres de l'application
+pour que l'IA puisse utiliser les nouveaux documents.

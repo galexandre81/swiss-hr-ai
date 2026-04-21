@@ -1,0 +1,12 @@
+{
+    "lm_studio_url": "http://localhost:1234/v1",
+    "lm_studio_model": "qwen-3.5-9b",
+    "lm_studio_timeout": 120,
+
+    "temperature_factuel": 0.1,
+    "temperature_neutre": 0.3,
+    "temperature_creatif": 0.7,
+
+    "langue": "fr",
+    "entite_active": ""
+}

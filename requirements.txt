@@ -1,0 +1,15 @@
+# --- Socle (Phase 0) ---
+pywebview==5.1           # fenêtre native + bridge JS/Python
+requests==2.32.3         # appels HTTP vers LM Studio
+
+# --- RAG (Phase 2, déjà listé pour ne rien oublier) ---
+# chromadb==0.5.5
+# sentence-transformers==3.0.1
+# pypdf==4.3.1
+
+# --- Documents (Phase 1+) ---
+# python-docx==1.1.2
+# reportlab==4.2.2
+
+# --- Packaging (Phase finale) ---
+# pyinstaller==6.10.0

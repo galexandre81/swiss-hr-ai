@@ -1,0 +1,15 @@
+DOSSIER : Modèles (Templates) Word
+====================================
+
+Ce dossier contient les modèles Word (.docx) utilisés par l'application
+pour produire les documents finaux (certificats, lettres, fiches de poste).
+
+Chaque modèle contient des "variables" de la forme {{nom_variable}} que
+l'application remplace automatiquement par le contenu généré par l'IA.
+
+Vous pouvez MODIFIER le DESIGN (polices, couleurs, mise en page) de ces
+modèles directement dans Microsoft Word.
+
+IMPORTANT : ne modifiez PAS les noms de variables entre accolades
+({{nom_employe}}, {{poste}}, etc.) — l'application ne saurait plus les
+remplir correctement.

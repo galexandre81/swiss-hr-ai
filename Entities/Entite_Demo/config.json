@@ -1,0 +1,14 @@
+{
+  "id": "entite_demo",
+  "nom": "Société Démo SA",
+  "forme_juridique": "SA",
+  "adresse": "Rue de l'Exemple 1, 1200 Genève",
+  "telephone": "+41 22 000 00 00",
+  "email": "rh@societe-demo.ch",
+  "signataire": {
+    "nom": "Jean Dupont",
+    "fonction": "Responsable des Ressources Humaines"
+  },
+  "logo_fichier": "logo.png",
+  "signature_fichier": "signature.png"
+}

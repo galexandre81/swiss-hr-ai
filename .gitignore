@@ -1,0 +1,51 @@
+# ============ Python ============
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.Python
+build/
+dist/
+*.spec
+
+# ============ Environnements virtuels ============
+.venv/
+venv/
+env/
+
+# ============ IDE / OS ============
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ============ Projet : données locales générées ============
+# On garde les dossiers (grâce aux .gitkeep) mais pas leur contenu.
+Outputs/*
+!Outputs/.gitkeep
+
+Logs/*
+!Logs/.gitkeep
+
+data/*
+!data/.gitkeep
+
+# ============ Base juridique : PDFs sources (souvent lourds / spécifiques client) ============
+# Décommentez la ligne suivante si vous préférez ne PAS versionner les PDF :
+# Base_Juridique/*.pdf
+
+# ============ Entités : données client sensibles ============
+# Par défaut on ignore les entités SAUF la demo. À adapter selon votre usage.
+Entities/*/logo.png
+Entities/*/signature.png
+!Entities/Entite_Demo/logo.png
+!Entities/Entite_Demo/signature.png
+
+# ============ LM Studio : modèles GGUF (plusieurs Go, jamais dans git) ============
+*.gguf
+
+# ============ Secrets éventuels ============
+.env
+*.secret

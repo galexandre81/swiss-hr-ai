@@ -1,0 +1,17 @@
+DOSSIER : Entité Démo
+======================
+
+Chaque sous-dossier de "Entities/" correspond à une société (entité)
+pour laquelle vous produisez des documents RH.
+
+Contenu attendu :
+- config.json       : identité de la société (nom, adresse, signataire)
+- logo.png          : logo de la société (sera inséré dans les documents)
+- signature.png     : image scannée de la signature du signataire
+
+Pour AJOUTER une nouvelle entité :
+1. Copiez ce dossier "Entite_Demo" et renommez-le (ex: "Entite_Acme").
+2. Ouvrez le config.json et adaptez les informations.
+3. Remplacez logo.png et signature.png par vos propres fichiers.
+
+L'application détecte automatiquement les nouvelles entités au démarrage.

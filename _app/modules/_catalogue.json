@@ -1,0 +1,72 @@
+[
+  {
+    "id": "certificats",
+    "nom": "Générateur de Certificats",
+    "icone": "diplome",
+    "description": "Génère un certificat de travail fluide à partir de notes (1-5). Conforme Art. 330a CO.",
+    "categorie": "documents"
+  },
+  {
+    "id": "juridique",
+    "nom": "Assistant Juridique",
+    "icone": "balance",
+    "description": "Interrogez le Code des Obligations et la Loi sur le Travail en langage naturel, avec citations.",
+    "categorie": "juridique"
+  },
+  {
+    "id": "cv_matcher",
+    "nom": "Sourcing & CV Matcher",
+    "icone": "cv",
+    "description": "Compare un CV à une annonce. Extraction des compétences, détection des zones de risque.",
+    "categorie": "recrutement"
+  },
+  {
+    "id": "permis",
+    "nom": "Permis de Travail",
+    "icone": "passeport",
+    "description": "Rédige les lettres de motivation pour OCPM/SPOP (permis B, L, G, priorité indigène).",
+    "categorie": "juridique"
+  },
+  {
+    "id": "cahier_des_charges",
+    "nom": "Cahier des Charges",
+    "icone": "liste",
+    "description": "Transforme une liste de tâches en descriptif de poste structuré par responsabilités.",
+    "categorie": "documents"
+  },
+  {
+    "id": "feedback",
+    "nom": "Neutraliseur de Feedback",
+    "icone": "bulle",
+    "description": "Reformule des commentaires managériaux bruts en feedback constructif (méthode Sandwich).",
+    "categorie": "rh"
+  },
+  {
+    "id": "traducteur",
+    "nom": "Traducteur Terminologique",
+    "icone": "langue",
+    "description": "Traduction RH Fr/All respectant le lexique fédéral (AVS, LPP, allocations).",
+    "categorie": "rh"
+  },
+  {
+    "id": "onboarding",
+    "nom": "Onboarding Dynamique",
+    "icone": "accueil",
+    "description": "Génère un Welcome Book PDF personnalisé selon département et niveau du poste.",
+    "categorie": "rh"
+  },
+  {
+    "id": "cct",
+    "nom": "Analyseur de CCT",
+    "icone": "loupe",
+    "description": "Vérifie la conformité d'un contrat par rapport à une CCT déposée (Horlogerie, Construction…).",
+    "categorie": "juridique"
+  },
+  {
+    "id": "lettres",
+    "nom": "Lettres Officielles",
+    "icone": "courrier",
+    "description": "Courriers types : fin de période d'essai, avertissement, promotion, modification de contrat.",
+    "categorie": "documents"
+  }
+]
