@@ -11,7 +11,6 @@ from _app.core.questionnaire_engine import (
     QuestionnaireEngine,
 )
 
-
 reportlab_missing = not QuestionnaireEngine.is_available()
 pytestmark = pytest.mark.skipif(
     reportlab_missing,

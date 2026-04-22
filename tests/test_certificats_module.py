@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-import json
 import shutil
 from pathlib import Path
-
-import pytest
 
 from _app.core.blacklist_detector import BlacklistDetector
 from _app.core.dossier_store import DossierStore
 from _app.core.formulation_library import FormulationLibrary
 from _app.core.module_base import ModuleContext
-
 
 # --- Fixtures dédiées --------------------------------------------------
 
@@ -122,8 +118,8 @@ def test_end_to_end_draft_is_coherent(sandbox):
     _copy_real_library(sandbox)
     mod = _load_module()
     store = DossierStore()
-    dossier = store.create(nom="Blanc", prenom="Sophie", langue="fr",
-                           type_document="certificat_final")
+    store.create(nom="Blanc", prenom="Sophie", langue="fr",
+                 type_document="certificat_final")
 
     state = mod.ensure_state({})
     for step_id, ans in _complete_answers().items():
@@ -157,8 +153,8 @@ def test_finalize_seals_and_blocks_on_incomplete(sandbox):
     _copy_real_library(sandbox)
     mod = _load_module()
     store = DossierStore()
-    dossier = store.create(nom="Testeur", prenom="Pierre", langue="fr",
-                           type_document="certificat_final")
+    store.create(nom="Testeur", prenom="Pierre", langue="fr",
+                 type_document="certificat_final")
 
     # État incomplet volontairement
     state = mod.ensure_state({})

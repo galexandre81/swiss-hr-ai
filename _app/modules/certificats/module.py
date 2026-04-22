@@ -25,15 +25,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from _app.core.audit_trail import AuditTrail, sha256_of
+from _app.core.audit_trail import AuditTrail
 from _app.core.module_base import ModuleContext
 from _app.core.wizard_base import WizardModuleBase, WizardStep
 from _app.modules.certificats.generator import (
     CRITERES,
     CRITERES_OBLIGATOIRES,
     LEVEL_LABELS,
-    Alerte,
-    Draft,
     build_draft,
 )
 
@@ -60,7 +58,7 @@ class Module(WizardModuleBase):
         ]
         # Champs par critère (5 niveaux + exemple concret).
         critere_fields: list[dict[str, Any]] = []
-        for cid, label, default_applicable in CRITERES:
+        for cid, label, _default_applicable in CRITERES:
             critere_fields.append({
                 "id": f"crit_{cid}_niveau",
                 "label": f"{label} — niveau",

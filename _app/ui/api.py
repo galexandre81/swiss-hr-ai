@@ -23,8 +23,6 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-_HEX_COLOR_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
-
 import webview
 
 from _app.core import (
@@ -58,6 +56,9 @@ _DOCUMENT_EXTS = frozenset({
 })
 # Taille max d'un fichier archivé : 50 Mo. Au-delà, on refuse (rapide garde-fou).
 _DOCUMENT_MAX_BYTES = 50 * 1024 * 1024
+
+# Pattern de validation d'une couleur hexadécimale #RRGGBB.
+_HEX_COLOR_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
 
 # Clés autorisées pour open_folder — mapping fermé pour empêcher toute
 # lecture hors des dossiers projet.

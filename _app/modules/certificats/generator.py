@@ -214,7 +214,7 @@ def build_draft(
 
     realisations = (parcours.get("realisations") or "").strip()
     if realisations:
-        lignes.append(f"Parmi ses réalisations marquantes, on peut notamment relever :")
+        lignes.append("Parmi ses réalisations marquantes, on peut notamment relever :")
         for ligne in _bulletize(realisations):
             lignes.append(ligne)
         lignes.append("")
@@ -253,8 +253,7 @@ def build_draft(
                 code="formulation_manquante",
                 severite="alerte",
                 message=f"Aucune formulation validée pour {label} niveau {niveau} ({langue}).",
-                suggestion="Compléter Bibliotheques/{langue}/formulations_validees.json.".format(
-                    langue=langue),
+                suggestion=f"Compléter Bibliotheques/{langue}/formulations_validees.json.",
             ))
             continue
         lignes.append(phrase)
@@ -418,7 +417,7 @@ def _bulletize(raw: str) -> list[str]:
 def _phrase_motif(motif: str, prenom: str) -> str:
     mapping = {
         "demission": f"{prenom} nous quitte suite à sa démission.",
-        "employeur": f"Les rapports de travail ont pris fin à notre initiative.",
+        "employeur": "Les rapports de travail ont pris fin à notre initiative.",
         "accord_commun": "Les rapports de travail ont pris fin d'un commun accord.",
         "fin_cdd": "Les rapports de travail ont pris fin à l'échéance du contrat de durée déterminée.",
         "retraite": f"{prenom} fait valoir ses droits à la retraite.",

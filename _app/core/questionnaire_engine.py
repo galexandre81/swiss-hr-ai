@@ -23,8 +23,6 @@ try:
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.units import mm
-    from reportlab.pdfbase import pdfmetrics
-    from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.pdfgen import canvas
     _REPORTLAB_AVAILABLE = True
 except ImportError:
@@ -131,7 +129,7 @@ class QuestionnaireEngine:
     # Pages
     # ----------------------------------------------------------------
 
-    def _page_intro(self, c: "canvas.Canvas", ctx: QuestionnaireContext) -> None:
+    def _page_intro(self, c: canvas.Canvas, ctx: QuestionnaireContext) -> None:
         """Page 1 : objet, spécificité suisse, échelle, exemples, confidentialité."""
         w, h = A4
         margin = 20 * mm
@@ -159,7 +157,7 @@ class QuestionnaireEngine:
                                 y=margin + 10 * mm,
                                 width=35 * mm, height=20 * mm,
                                 preserveAspectRatio=True, anchor="se", mask="auto")
-            except Exception as exc:  # noqa: BLE001
+            except Exception:  # noqa: BLE001
                 # On ne fait pas échouer la génération pour un logo problématique.
                 pass
 
@@ -221,7 +219,7 @@ class QuestionnaireEngine:
         # Pied confidentialité
         self._footer_confidentialite(c, ctx)
 
-    def _page_identification(self, c: "canvas.Canvas", ctx: QuestionnaireContext,
+    def _page_identification(self, c: canvas.Canvas, ctx: QuestionnaireContext,
                               form: Any) -> None:
         """Page 2 : identification manager + rappel période."""
         w, h = A4
@@ -289,7 +287,7 @@ class QuestionnaireEngine:
 
         self._footer_confidentialite(c, ctx)
 
-    def _pages_criteres(self, c: "canvas.Canvas", ctx: QuestionnaireContext,
+    def _pages_criteres(self, c: canvas.Canvas, ctx: QuestionnaireContext,
                          form: Any) -> None:
         """Pages 3+ : une par groupe de critères."""
         w, h = A4
@@ -316,7 +314,7 @@ class QuestionnaireEngine:
 
         self._footer_confidentialite(c, ctx)
 
-    def _page_synthese(self, c: "canvas.Canvas", ctx: QuestionnaireContext,
+    def _page_synthese(self, c: canvas.Canvas, ctx: QuestionnaireContext,
                        form: Any) -> None:
         """Dernière page : note globale + commentaire libre + contexte départ."""
         w, h = A4
@@ -373,7 +371,7 @@ class QuestionnaireEngine:
     # Primitives de layout
     # ----------------------------------------------------------------
 
-    def _page_header(self, c: "canvas.Canvas", title: str) -> None:
+    def _page_header(self, c: canvas.Canvas, title: str) -> None:
         w, h = A4
         c.setFillColor(getattr(self, "_accent", _ACCENT))
         c.rect(0, h - 12 * mm, w, 12 * mm, stroke=0, fill=1)
@@ -381,7 +379,7 @@ class QuestionnaireEngine:
         c.setFont("Helvetica-Bold", 12)
         c.drawString(20 * mm, h - 8 * mm, title)
 
-    def _footer_confidentialite(self, c: "canvas.Canvas",
+    def _footer_confidentialite(self, c: canvas.Canvas,
                                  ctx: QuestionnaireContext) -> None:
         w, _ = A4
         c.setFillColor(_INK_SOFT)
@@ -393,7 +391,7 @@ class QuestionnaireEngine:
         )
         c.drawCentredString(w / 2, 8 * mm, msg)
 
-    def _kv(self, c: "canvas.Canvas", x: float, y: float,
+    def _kv(self, c: canvas.Canvas, x: float, y: float,
              label: str, value: str) -> None:
         c.setFont("Helvetica", 10)
         c.setFillColor(_INK_SOFT)
@@ -496,7 +494,6 @@ class QuestionnaireEngine:
         if include_na:
             options.append(("na", "N/A"))
 
-        n = len(options)
         radio_size = 4 * mm
         # Largeur de colonne : cercle + gap + label (« 1 ★ » ~ 9 mm).
         col_width = 27 * mm

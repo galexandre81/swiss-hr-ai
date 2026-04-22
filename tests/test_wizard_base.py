@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 from _app.core.module_base import ModuleContext
 from _app.core.wizard_base import WizardModuleBase, WizardStep
 
