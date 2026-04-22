@@ -1,6 +1,6 @@
 {
   "id": "entite_demo",
-  "nom": "Société Démo SA",
+  "nom": "Gates Solutions",
   "forme_juridique": "SA",
   "adresse": "Rue de l'Exemple 1, 1200 Genève",
   "telephone": "+41 22 000 00 00",
@@ -9,6 +9,6 @@
     "nom": "Jean Dupont",
     "fonction": "Responsable des Ressources Humaines"
   },
-  "logo_fichier": "logo.png",
+  "logo_fichier": "logo.jpg",
   "signature_fichier": "signature.png"
 }

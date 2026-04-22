@@ -1,0 +1,197 @@
+{
+  "version": "2026-04-22-seed",
+  "langue": "fr",
+  "valide_par": "Seed initial Gates Solutions Sàrl — À FAIRE RELIRE PAR UN JURISTE AVANT USAGE EN PRODUCTION.",
+  "notes_redactionnelles": [
+    "Les formulations 1-2 évitent le langage codé classique (« s'est efforcé de », « a donné satisfaction ») proscrit par la jurisprudence (TF 4A_117/2007).",
+    "Chaque niveau propose plusieurs variantes pour éviter les répétitions dans un même certificat.",
+    "L'appréciation globale (appreciation_globale) est la SEULE pièce que le LLM n'écrit pas : elle est choisie par le RH et reproduite telle quelle.",
+    "Niveau 3 = « conforme aux attentes ». Lu par les recruteurs suisses comme « moyen » — à assumer consciemment."
+  ],
+  "formulations": {
+    "appreciation_globale": {
+      "5": [
+        "a fourni en toutes circonstances des prestations excellentes et exécuté les tâches confiées à notre pleine et entière satisfaction",
+        "a toujours accompli son travail à notre pleine et entière satisfaction"
+      ],
+      "4": [
+        "a fourni de très bonnes prestations et accompli ses tâches à notre entière satisfaction",
+        "a exécuté l'ensemble de ses tâches à notre entière satisfaction"
+      ],
+      "3": [
+        "a accompli les tâches qui lui étaient confiées à notre satisfaction",
+        "a rempli sa fonction à notre satisfaction"
+      ],
+      "2": [
+        "a exécuté les tâches confiées ; certains volets du poste n'ont pas atteint le niveau attendu sur la période",
+        "a mené à bien une partie de son périmètre ; des axes d'amélioration ont été identifiés et documentés durant la collaboration"
+      ],
+      "1": [
+        "n'a pas atteint les objectifs fixés pour la fonction sur la période considérée ; les points relevés ont été formalisés par écrit",
+        "n'a pas accompli sa mission dans le périmètre attendu ; les éléments concernés ont fait l'objet de constats documentés"
+      ]
+    },
+    "qualite_travail": {
+      "5": [
+        "La qualité de son travail s'est distinguée par une rigueur remarquable et un souci du détail constant.",
+        "La qualité de ses livrables a systématiquement dépassé les standards attendus."
+      ],
+      "4": [
+        "La qualité de son travail a été très bonne, avec un souci du détail apprécié dans l'équipe.",
+        "Ses livrables se sont régulièrement distingués par leur rigueur."
+      ],
+      "3": [
+        "La qualité de son travail a correspondu aux attentes du poste.",
+        "Ses livrables ont été conformes aux standards de la fonction."
+      ],
+      "2": [
+        "La qualité de son travail a été variable selon les dossiers ; plusieurs livrables ont nécessité une reprise après relecture.",
+        "Des points de qualité ont été identifiés et repris avec la personne durant la collaboration."
+      ],
+      "1": [
+        "La qualité des livrables n'a pas atteint le niveau attendu pour la fonction ; les constats ont été formalisés par écrit."
+      ]
+    },
+    "quantite_travail": {
+      "5": [
+        "Sa productivité a été constante et supérieure aux attentes, même sur des périodes de forte charge.",
+        "Le volume de travail absorbé a dépassé les standards du poste."
+      ],
+      "4": [
+        "Sa productivité s'est maintenue à un très bon niveau tout au long de la période.",
+        "Le volume de travail traité a régulièrement dépassé les objectifs."
+      ],
+      "3": [
+        "Le volume de travail produit a correspondu aux exigences du poste.",
+        "Sa productivité a été conforme aux standards de la fonction."
+      ],
+      "2": [
+        "Le volume de travail a fluctué selon les périodes ; certaines échéances ont nécessité une redistribution interne.",
+        "La productivité n'a pas toujours atteint le rythme requis par la fonction."
+      ],
+      "1": [
+        "La productivité n'a pas atteint les exigences du poste ; les constats ont été formalisés."
+      ]
+    },
+    "competences_techniques": {
+      "5": [
+        "Elle/Il maîtrise parfaitement les outils et méthodes de sa fonction et s'est imposé·e comme référent·e dans plusieurs domaines techniques.",
+        "Ses compétences techniques se sont distinguées comme un atout majeur pour l'équipe."
+      ],
+      "4": [
+        "Elle/Il dispose de très solides compétences techniques et les met en œuvre avec efficacité au quotidien.",
+        "Ses compétences techniques ont été très régulièrement sollicitées par l'équipe."
+      ],
+      "3": [
+        "Elle/Il dispose des compétences techniques requises par la fonction et les met en œuvre de manière satisfaisante.",
+        "Ses compétences techniques ont couvert l'ensemble du périmètre du poste."
+      ],
+      "2": [
+        "Certaines compétences techniques du poste ont nécessité un accompagnement ou une formation complémentaire durant la période."
+      ],
+      "1": [
+        "Les compétences techniques requises n'étaient pas acquises au niveau attendu sur la période considérée."
+      ]
+    },
+    "fiabilite_autonomie": {
+      "5": [
+        "Son autonomie et sa fiabilité ont été exemplaires ; elle/il a pris en charge des dossiers sensibles avec un minimum d'encadrement.",
+        "Sa fiabilité a été totale tout au long de la collaboration."
+      ],
+      "4": [
+        "Son autonomie a été très bonne et sa fiabilité constamment confirmée.",
+        "Elle/Il a su gérer son périmètre avec une forte autonomie et un excellent sens des priorités."
+      ],
+      "3": [
+        "Son autonomie et sa fiabilité ont été conformes aux attentes du poste.",
+        "Elle/Il a accompli ses missions avec l'autonomie attendue à ce niveau de fonction."
+      ],
+      "2": [
+        "Certaines situations ont demandé un accompagnement rapproché durant la période."
+      ],
+      "1": [
+        "Le niveau d'autonomie attendu pour la fonction n'a pas été atteint sur la période considérée."
+      ]
+    },
+    "comportement_hierarchie": {
+      "5": [
+        "Son comportement envers la hiérarchie a été exemplaire, marqué par un dialogue constructif et une grande loyauté.",
+        "Elle/Il a entretenu des relations excellentes avec sa hiérarchie, basées sur la transparence et la fiabilité."
+      ],
+      "4": [
+        "Son comportement envers la hiérarchie a été très bon, professionnel et constructif.",
+        "Elle/Il a entretenu de très bonnes relations avec sa hiérarchie."
+      ],
+      "3": [
+        "Son comportement envers la hiérarchie a été correct et professionnel.",
+        "Elle/Il a entretenu des relations correctes avec sa hiérarchie."
+      ],
+      "2": [
+        "Des échanges ont eu lieu durant la collaboration au sujet de la communication avec la hiérarchie."
+      ],
+      "1": [
+        "La relation avec la hiérarchie a fait l'objet de recadrages formalisés durant la collaboration."
+      ]
+    },
+    "comportement_collegues": {
+      "5": [
+        "Son comportement envers ses collègues a été exemplaire ; son esprit d'équipe et sa disponibilité ont été unanimement appréciés.",
+        "Elle/Il a contribué positivement à l'ambiance de l'équipe en toutes circonstances."
+      ],
+      "4": [
+        "Son comportement envers ses collègues a été très bon ; son esprit d'équipe a été apprécié.",
+        "Elle/Il a entretenu d'excellentes relations avec ses collègues, avec un vrai esprit de coopération."
+      ],
+      "3": [
+        "Son comportement envers ses collègues a été correct et professionnel.",
+        "Elle/Il a entretenu des relations correctes avec ses collègues."
+      ],
+      "2": [
+        "La communication au sein de l'équipe a fait l'objet d'ajustements durant la collaboration."
+      ],
+      "1": [
+        "Des difficultés relationnelles au sein de l'équipe ont été constatées et formalisées durant la période."
+      ]
+    },
+    "comportement_subordonnes": {
+      "5": [
+        "En tant que manager, elle/il a fait preuve d'un leadership exemplaire, développant son équipe avec exigence et bienveillance.",
+        "Son management a été unanimement reconnu par son équipe comme structurant et inspirant."
+      ],
+      "4": [
+        "Elle/Il a encadré son équipe avec efficacité, clarté et respect.",
+        "Son management a été apprécié par son équipe pour sa rigueur et son écoute."
+      ],
+      "3": [
+        "Elle/Il a assuré l'encadrement de son équipe conformément aux attentes du poste.",
+        "Son management a été conforme aux standards de la fonction."
+      ],
+      "2": [
+        "Des points managériaux ont été travaillés avec l'intéressé·e durant la période."
+      ],
+      "1": [
+        "L'encadrement d'équipe n'a pas atteint les standards attendus ; les constats ont été formalisés."
+      ]
+    },
+    "comportement_clients": {
+      "5": [
+        "Sa relation avec les clients et partenaires externes a été exemplaire, reconnue par plusieurs retours positifs.",
+        "Elle/Il a représenté l'entreprise avec un professionnalisme remarquable auprès des clients."
+      ],
+      "4": [
+        "Elle/Il a entretenu de très bonnes relations avec les clients et partenaires externes.",
+        "Sa posture professionnelle auprès des clients a été très bien appréciée."
+      ],
+      "3": [
+        "Elle/Il a entretenu des relations correctes et professionnelles avec les clients et partenaires.",
+        "Sa représentation auprès des clients a été conforme aux attentes du poste."
+      ],
+      "2": [
+        "La posture relationnelle avec certains clients a fait l'objet d'échanges durant la collaboration."
+      ],
+      "1": [
+        "Des difficultés dans la relation client ont été constatées et formalisées sur la période."
+      ]
+    }
+  }
+}

@@ -23,7 +23,6 @@ from typing import Any
 from _app.core.logger import get_logger
 from _app.core.module_base import ModuleBase
 
-
 MODULES_PACKAGE = "_app.modules"
 CATALOG_FILENAME = "_catalogue.json"
 

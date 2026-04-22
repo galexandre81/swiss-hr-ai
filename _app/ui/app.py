@@ -9,8 +9,7 @@ import webview
 from _app.core import get_config, get_logger
 from _app.ui.api import Api
 
-
-WINDOW_TITLE = "Swiss HR Local AI Toolbox"
+WINDOW_TITLE = "ARHIANE — L'IA qui remet les RH au centre"
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 820
 MIN_WIDTH = 1024

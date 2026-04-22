@@ -20,10 +20,10 @@ gh --version
 
 ## 2. Initialiser le repo (sur l'ordinateur actuel uniquement)
 
-Depuis le dossier `Swiss HR AI` :
+Depuis le dossier `ARHIANE` :
 
 ```bash
-cd "C:\Users\guill\Documents\Claude\Projects\Swiss HR AI"
+cd "C:\Users\guill\Documents\Claude\Projects\ARHIANE"
 
 git init
 git add .
@@ -38,7 +38,7 @@ git commit -m "Phase 0 : socle + interface générale"
 
 ```bash
 gh auth login          # à faire une fois
-gh repo create swiss-hr-ai --private --source=. --remote=origin --push
+gh repo create arhiane --private --source=. --remote=origin --push
 ```
 
 Et c'est fini. Le repo est créé, connecté et poussé.
@@ -46,13 +46,13 @@ Et c'est fini. Le repo est créé, connecté et poussé.
 ### Option B — via l'interface web GitHub
 
 1. Va sur <https://github.com/new>
-2. Nom : `swiss-hr-ai` (ou ce que tu veux)
+2. Nom : `arhiane` (ou ce que tu veux)
 3. Coche **Private**
 4. Ne coche PAS "Initialize with README" (on a déjà le nôtre)
 5. Crée le repo, puis exécute les commandes affichées :
 
 ```bash
-git remote add origin https://github.com/<ton-user>/swiss-hr-ai.git
+git remote add origin https://github.com/<ton-user>/arhiane.git
 git branch -M main
 git push -u origin main
 ```
@@ -63,15 +63,15 @@ git push -u origin main
 
 ```bash
 cd "C:\Users\<toi>\Documents\Claude\Projects"
-git clone https://github.com/<ton-user>/swiss-hr-ai.git "Swiss HR AI"
-cd "Swiss HR AI"
+git clone https://github.com/<ton-user>/arhiane.git "ARHIANE"
+cd "ARHIANE"
 
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Puis : ouvrir LM Studio, charger Qwen, lancer le serveur, et double-clic sur `SwissHR.bat`.
+Puis : ouvrir LM Studio, charger Qwen, lancer le serveur, et double-clic sur `ARHIANE.bat`.
 
 ---
 

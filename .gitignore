@@ -39,9 +39,22 @@ data/*
 # ============ Entités : données client sensibles ============
 # Par défaut on ignore les entités SAUF la demo. À adapter selon votre usage.
 Entities/*/logo.png
+Entities/*/logo.jpg
+Entities/*/logo.jpeg
+Entities/*/logo.webp
 Entities/*/signature.png
+Entities/*/signature.jpg
+Entities/*/signature.jpeg
+Entities/*/signature.webp
 !Entities/Entite_Demo/logo.png
+!Entities/Entite_Demo/logo.jpg
 !Entities/Entite_Demo/signature.png
+!Entities/Entite_Demo/signature.jpg
+
+# ============ Dossiers collaborateurs (§16 analyse fonctionnelle) ============
+# Engagement commercial : AUCUNE donnée collaborateur ne quitte la machine.
+# La structure locale se recrée automatiquement au lancement de l'outil.
+Dossiers/
 
 # ============ LM Studio : modèles GGUF (plusieurs Go, jamais dans git) ============
 *.gguf

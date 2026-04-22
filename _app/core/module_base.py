@@ -7,7 +7,6 @@ qui définit une sous-classe de ModuleBase nommée `Module`.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any
 
 
@@ -23,8 +22,11 @@ class ModuleContext:
     llm: Any              # _app.core.LLMClient
     entity: Any | None    # _app.core.Entity (peut être None)
     logger: Any           # _app.core.Logger
-    rag: Any | None = None       # RAG engine (sera branché plus tard)
-    doc: Any | None = None       # doc engine (sera branché plus tard)
+    rag: Any | None = None              # RAG engine (sera branché plus tard)
+    doc: Any | None = None              # doc engine (sera branché plus tard)
+    dossiers: Any | None = None         # _app.core.DossierStore (modules wizard)
+    formulations: Any | None = None     # _app.core.FormulationLibrary
+    blacklist: Any | None = None        # _app.core.BlacklistDetector
     extras: dict[str, Any] = field(default_factory=dict)
 
 

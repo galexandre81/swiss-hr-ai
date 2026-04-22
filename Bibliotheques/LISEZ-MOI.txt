@@ -1,0 +1,21 @@
+Bibliothèques de formulations RH
+=================================
+
+Un dossier par langue : fr/, de/, en/.
+Chaque langue contient deux fichiers JSON :
+
+  formulations_validees.json  — phrases par critère et par niveau (1-5)
+  blacklist.json              — tournures codées / proscrites à détecter
+
+Ces fichiers sont OUVERTS et ÉDITABLES par le RH expert.
+Toute modification est prise en compte au prochain lancement de l'outil.
+
+Statut des livraisons :
+
+  fr/  → Seed initial livré. À faire relire par un juriste avant prod.
+  de/  → À produire. Structure identique à FR, formulations différentes.
+  en/  → À produire. Structure volontairement distincte : pas d'échelle
+         5 niveaux codée, formulations plus directes (cf. §20.3 spec).
+
+En cas de doute sur l'impact juridique d'une modification, consulter
+un juriste suisse spécialisé en droit du travail avant mise en prod.

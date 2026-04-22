@@ -1,0 +1,103 @@
+{
+  "version": "2026-04-22-seed",
+  "langue": "fr",
+  "source_juridique": "TF 4A_117/2007, SECO Certificat de travail, Dunand/Mahon 2e éd.",
+  "regles": [
+    {
+      "id": "fr_code_01_efforce",
+      "severite": "bloquant",
+      "type": "regex",
+      "pattern": "s['\u2019]est efforc[ée]e?\\s+de",
+      "raison": "Tournure d'effort sans résultat (niveau 1-2 codé).",
+      "suggestion": "Remplacer par une formulation factuelle sur le résultat atteint, ou décrire concrètement les difficultés."
+    },
+    {
+      "id": "fr_code_02_a_toujours_essaye",
+      "severite": "bloquant",
+      "type": "regex",
+      "pattern": "a\\s+toujours\\s+essay[ée]",
+      "raison": "Tournure d'effort perpétuel sans résultat (très mauvais codé).",
+      "suggestion": "Décrire factuellement les tentatives et leurs suites."
+    },
+    {
+      "id": "fr_code_03_a_donne_satisfaction",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "a\\s+donn[ée]\\s+satisfaction",
+      "raison": "« A donné satisfaction » (sans qualificatif) est lu comme insuffisant.",
+      "suggestion": "Préciser : « à notre satisfaction », « à notre entière satisfaction » ou « à notre pleine et entière satisfaction » selon le niveau choisi."
+    },
+    {
+      "id": "fr_code_04_avec_application",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "avec\\s+application\\b",
+      "raison": "« Avec application » évoque l'effort consciencieux sans résultat (niveau 2 codé).",
+      "suggestion": "Privilégier une appréciation de résultat."
+    },
+    {
+      "id": "fr_code_05_a_oeuvre",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "a\\s+\u0153uvr[ée]\\s+avec",
+      "raison": "« A œuvré avec application » = formulation consacrée codée.",
+      "suggestion": "Remplacer par une formulation factuelle."
+    },
+    {
+      "id": "fr_code_06_ponctuel_seul",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "(?:^|[.!?]\\s+|\\n)[A-Z][^.!?\\n]*\\bponctu(?:el|elle|alit[ée])\\b[^.!?]{0,60}[.!?]",
+      "raison": "Mettre la ponctualité comme seul qualificatif = rien d'autre à signaler (code par omission).",
+      "suggestion": "La ponctualité peut être mentionnée, mais doit être accompagnée d'autres appréciations substantielles."
+    },
+    {
+      "id": "fr_code_07_bons_termes",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "quitte\\s+l['\u2019]entreprise\\s+en\\s+bons\\s+termes",
+      "raison": "« En bons termes » (sans autre mention) suggère un départ non souhaité.",
+      "suggestion": "Si le départ est une démission ou se fait en bonne entente, privilégier « Nous remercions Madame/Monsieur X pour sa collaboration et lui souhaitons plein succès dans la suite de son parcours »."
+    },
+    {
+      "id": "fr_code_08_bonne_chance_sans_remerciement",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "(?<!remerci[eé])\\s+lui\\s+souhaitons\\s+bonne\\s+chance",
+      "raison": "Vœux sans remerciements = départ voulu par l'employeur.",
+      "suggestion": "Ajouter des remerciements explicites, ou adapter la formule à la réalité du départ."
+    },
+    {
+      "id": "fr_code_09_certificat_non_code",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "certificat\\s+non\\s+cod[ée]",
+      "raison": "La mention « certificat non codé » est sans valeur juridique (SECO) et signale une intention suspecte.",
+      "suggestion": "Retirer cette mention. La qualité rédactionnelle ne se déclare pas, elle se démontre."
+    },
+    {
+      "id": "fr_code_10_sociabilite",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "connu(?:e)?\\s+pour\\s+sa\\s+sociabilit[ée]",
+      "raison": "« Connu pour sa sociabilité » peut coder un manque de sérieux.",
+      "suggestion": "Qualifier la sociabilité en lien avec la fonction (cohésion d'équipe, relation client, etc.)."
+    },
+    {
+      "id": "fr_code_11_consciencieusement_seul",
+      "severite": "alerte",
+      "type": "regex",
+      "pattern": "a\\s+fait\\s+son\\s+travail\\s+consciencieusement(?!\\s+et)",
+      "raison": "« Consciencieusement » sans qualificatif de résultat est lu comme moyen.",
+      "suggestion": "Ajouter une appréciation de résultat : « consciencieusement et à notre entière satisfaction »."
+    },
+    {
+      "id": "fr_pii_01_maladie",
+      "severite": "bloquant",
+      "type": "regex",
+      "pattern": "\\b(?:d[ée]pression|burn[- ]?out|cancer|diab[eè]te|grossesse non d[ée]sir[ée])\\b",
+      "raison": "Diagnostic médical précis interdit dans un certificat (§6 spec / nLPD / art. 328 CO).",
+      "suggestion": "Utiliser une formulation neutre : « pour raisons de santé », « absence pour raison familiale »."
+    }
+  ]
+}

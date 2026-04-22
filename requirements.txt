@@ -1,3 +1,5 @@
+# Dépendances d'exécution — installées sur le poste utilisateur (ou packagées dans le .exe).
+
 # --- Socle (Phase 0) ---
 pywebview==5.1           # fenêtre native + bridge JS/Python
 requests==2.32.3         # appels HTTP vers LM Studio
@@ -9,7 +11,7 @@ requests==2.32.3         # appels HTTP vers LM Studio
 
 # --- Documents (Phase 1+) ---
 # python-docx==1.1.2
-# reportlab==4.2.2
+reportlab==4.2.2         # génération des PDF questionnaires manager (AcroForm)
 
 # --- Packaging (Phase finale) ---
 # pyinstaller==6.10.0

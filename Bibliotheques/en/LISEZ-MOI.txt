@@ -1,0 +1,22 @@
+English library (EN) — to produce.
+
+IMPORTANT: the English library is NOT a translation of the French one.
+Anglo-saxon reference letters are more direct and less coded. Mimicking
+the Swiss-German coded scale in English would produce text that reads
+as passive-aggressive to an anglo-saxon recruiter.
+
+Structure to produce:
+  - same criteria keys as fr/ for consistency;
+  - 3 levels only (positive / neutral / silence) is a reasonable design
+    choice, or keep 5 levels but with much more direct language and no
+    implicit scale — to be decided with an HR expert.
+  - default behavior: explicit positive signal OR silence. Never
+    faint-praise constructions.
+
+The blacklist EN should focus on:
+  - inadvertent translations of FR/DE coded phrases
+  - defamatory phrasings that US/UK case law treats differently from CO
+    (reference letter privilege exists but is limited).
+
+Consult an English-language HR/employment law specialist before
+producing the content file.

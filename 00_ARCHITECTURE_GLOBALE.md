@@ -1,4 +1,4 @@
-# Swiss HR Local AI Toolbox — Architecture globale
+# ARHIANE — L'IA qui remet les RH au centre — Architecture globale
 
 **Version :** 1.0 — 21 avril 2026
 **Objet :** Proposition d'infrastructure avant développement des modules métier
@@ -28,8 +28,8 @@ Le cahier des charges mentionne un wrapper Python autour de llama.cpp. Nous rete
 Principe : séparer strictement le code (caché à l'utilisateur) des données éditables (visibles, modifiables sans compétence informatique).
 
 ```
-SwissHR_Toolbox/
-├── SwissHR.exe                    ← double-clic pour lancer
+ARHIANE_Toolbox/
+├── ARHIANE.exe                    ← double-clic pour lancer
 ├── README_UTILISATEUR.pdf         ← guide illustré pas-à-pas
 │
 ├── _app/                          ← code compilé — l'utilisateur n'y touche jamais
@@ -144,7 +144,7 @@ En cas d'erreur : jamais de message technique brut. Traduction en langage métie
 
 ## 6. Parcours utilisateur cible
 
-1. Double-clic sur `SwissHR.exe`
+1. Double-clic sur `ARHIANE.exe`
 2. Fenêtre d'application s'ouvre — statut IA affiché
 3. Sélection de l'entité (déroulant avec logos miniatures)
 4. Clic sur une tuile du dashboard

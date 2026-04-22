@@ -2,7 +2,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Swiss HR Local AI Toolbox</title>
+    <!-- CSP stricte : aucune ressource externe, aucune connexion sortante.
+         Le pont PyWebView injecte window.pywebview.api, pas besoin de 'unsafe-*'. -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none';
+                   script-src 'self';
+                   style-src 'self';
+                   img-src 'self' data:;
+                   font-src 'self';
+                   connect-src 'none';
+                   form-action 'none';
+                   frame-ancestors 'none';
+                   base-uri 'none';">
+    <title>ARHIANE — L'IA qui remet les RH au centre</title>
+    <link rel="icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%25%27%20y1%3D%270%25%27%20x2%3D%27100%25%27%20y2%3D%27100%25%27%3E%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23261F5A%27%2F%3E%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%239575CD%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2716%27%20r%3D%2714%27%20fill%3D%27none%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%272.2%27%2F%3E%3Cpath%20d%3D%27M%208.5%2023%20L%2016%208%20L%2023.5%2023%20M%2011.5%2017.5%20L%2020.5%2017.5%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%272.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2715.5%27%20r%3D%271.6%27%20fill%3D%27url%28%23g%29%27%2F%3E%3C%2Fsvg%3E">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -10,34 +23,49 @@
     <header class="app-header">
         <div class="brand">
             <div class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="28" height="28">
-                    <rect width="32" height="32" rx="6" fill="#DA291C"/>
-                    <rect x="13" y="6" width="6" height="20" fill="white"/>
-                    <rect x="6" y="13" width="20" height="6" fill="white"/>
+                <svg viewBox="0 0 32 32" width="32" height="32">
+                    <defs>
+                        <linearGradient id="arhiane-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#261F5A"/>
+                            <stop offset="100%" stop-color="#9575CD"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="16" cy="16" r="14" fill="none" stroke="url(#arhiane-logo-grad)" stroke-width="2.2"/>
+                    <path d="M 8.5 23 L 16 8 L 23.5 23 M 11.5 17.5 L 20.5 17.5"
+                          stroke="url(#arhiane-logo-grad)" stroke-width="2.8" fill="none"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="16" cy="15.5" r="1.6" fill="url(#arhiane-logo-grad)"/>
                 </svg>
             </div>
             <div class="brand-text">
-                <div class="brand-title">Swiss HR</div>
-                <div class="brand-subtitle">Local AI Toolbox</div>
+                <div class="brand-title">ARHIANE</div>
+                <div class="brand-subtitle">L'IA qui remet les RH au centre</div>
             </div>
         </div>
 
-        <div class="entity-selector">
-            <label class="entity-selector-label">Entité active</label>
+        <div class="entity-selector" id="entity-selector-wrap">
+            <label class="entity-selector-label" for="entity-trigger">Entité active</label>
             <div class="custom-select" id="entity-select">
-                <button class="custom-select-trigger" id="entity-trigger" type="button">
+                <button class="custom-select-trigger" id="entity-trigger"
+                        type="button" aria-haspopup="listbox" aria-expanded="false">
                     <span id="entity-current">Chargement...</span>
-                    <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+                    <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
                 </button>
-                <ul class="custom-select-menu" id="entity-menu" hidden></ul>
+                <ul class="custom-select-menu" id="entity-menu" role="listbox" hidden></ul>
             </div>
         </div>
 
         <nav class="top-actions">
-            <button class="btn-ghost" id="btn-settings" title="Paramètres">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="10" cy="10" r="3"/>
+            <button class="btn-ghost" id="btn-theme" title="Changer le thème" aria-label="Changer le thème">
+                <svg id="icon-theme" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10" cy="10" r="4"/>
                     <path d="M10 2v2M10 16v2M18 10h-2M4 10H2M15.7 4.3l-1.4 1.4M5.7 14.3l-1.4 1.4M15.7 15.7l-1.4-1.4M5.7 5.7L4.3 4.3"/>
+                </svg>
+            </button>
+            <button class="btn-ghost" id="btn-settings" title="Paramètres" aria-label="Paramètres">
+                <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 3l1.5 2.5 3-.5-1 3L16 10l-2.5 2 1 3-3-.5L10 17l-1.5-2.5-3 .5 1-3L4 10l2.5-2-1-3 3 .5z"/>
+                    <circle cx="10" cy="10" r="2"/>
                 </svg>
             </button>
         </nav>
@@ -45,21 +73,260 @@
 
     <!-- ================ MAIN ================ -->
     <main class="app-main">
-        <section class="dashboard">
-            <div class="dashboard-intro">
-                <h1>Boîte à outils RH</h1>
-                <p>Sélectionnez un outil. Toutes les données restent sur votre ordinateur.</p>
-            </div>
-
+        <!-- Vue dashboard (modules groupés par section) -->
+        <section class="dashboard" id="view-dashboard">
             <div class="modules-grid" id="modules-grid">
-                <!-- Tuiles injectées par app.js -->
                 <div class="loading-placeholder">Chargement des outils…</div>
+            </div>
+        </section>
+
+        <!-- Vue module certificats (wizard multi-étapes) -->
+        <section class="module-view" id="view-certificats" hidden>
+            <header class="module-view-header">
+                <button class="btn-ghost-line btn-back" id="cert-back" type="button" aria-label="Retour au tableau de bord">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 4L6 10l6 6"/>
+                    </svg>
+                    <span>Tableau de bord</span>
+                </button>
+                <div class="module-view-title">
+                    <h1 id="cert-title">Générateur de certificats</h1>
+                    <p id="cert-subtitle" class="module-view-subtitle">Documents conformes à l'art. 330a CO, pas-à-pas, avec traçabilité d'audit.</p>
+                </div>
+            </header>
+
+            <div class="cert-layout">
+                <!-- Colonne gauche : liste de dossiers -->
+                <aside class="cert-sidebar">
+                    <div class="cert-sidebar-head">
+                        <h2>Dossiers</h2>
+                        <button class="btn-primary btn-small" id="cert-new" type="button">+ Nouveau</button>
+                    </div>
+                    <ul class="cert-dossier-list" id="cert-dossier-list">
+                        <li class="cert-empty">Chargement…</li>
+                    </ul>
+                </aside>
+
+                <!-- Colonne droite : wizard ou placeholder -->
+                <section class="cert-main">
+                    <div id="cert-empty" class="cert-placeholder">
+                        <p>Sélectionnez un dossier à gauche, ou créez-en un nouveau pour démarrer un certificat.</p>
+                    </div>
+
+                    <div id="cert-wizard" hidden>
+                        <nav class="cert-stepper" id="cert-stepper" aria-label="Étapes"></nav>
+
+                        <!-- Zone managers & questionnaires : collecte d'évaluation manager (§15) -->
+                        <section class="cert-docs" aria-labelledby="cert-mgr-title">
+                            <div class="cert-docs-head">
+                                <h3 id="cert-mgr-title">Managers & questionnaires</h3>
+                                <div class="cert-docs-actions">
+                                    <button class="btn-ghost-line" id="cert-mgr-add" type="button">+ Ajouter un manager</button>
+                                    <button class="btn-ghost-line" id="cert-mgr-open" type="button" title="Ouvrir le dossier questionnaires">Ouvrir le dossier</button>
+                                </div>
+                            </div>
+                            <p class="cert-docs-help">
+                                Ajoutez le ou les managers ayant encadré cette personne, puis générez un questionnaire PDF à leur transmettre
+                                (par mail, Teams, ou impression). Une fois rempli et renvoyé, déposez le PDF dans le sous-dossier « remplis ».
+                            </p>
+                            <ul class="cert-docs-list" id="cert-mgr-list">
+                                <li class="cert-empty">Aucun manager enregistré. Si vous préférez saisir les évaluations vous-même (mode « saisie RH »), vous pouvez passer directement à l'étape Évaluation.</li>
+                            </ul>
+                        </section>
+
+                        <!-- Zone documents sources : toujours visible, indépendante des étapes -->
+                        <section class="cert-docs" aria-labelledby="cert-docs-title">
+                            <div class="cert-docs-head">
+                                <h3 id="cert-docs-title">Documents sources</h3>
+                                <div class="cert-docs-actions">
+                                    <button class="btn-ghost-line" id="cert-docs-add" type="button">+ Ajouter</button>
+                                    <button class="btn-ghost-line" id="cert-docs-open" type="button" title="Ouvrir le dossier dans l'Explorateur">Ouvrir le dossier</button>
+                                </div>
+                            </div>
+                            <p class="cert-docs-help">
+                                Archivage des pièces de contexte (contrat, évaluations, fiche de poste, courriers).
+                                Conservées localement dans le dossier collaborateur — non extraites automatiquement en V1.
+                            </p>
+                            <ul class="cert-docs-list" id="cert-docs-list">
+                                <li class="cert-empty">Aucun document archivé.</li>
+                            </ul>
+                        </section>
+
+                        <div class="cert-step-header">
+                            <h2 id="cert-step-label">Étape</h2>
+                            <p id="cert-step-desc" class="cert-step-desc"></p>
+                        </div>
+                        <form id="cert-step-form" class="form-grid" novalidate></form>
+                        <div class="cert-errors" id="cert-errors" hidden></div>
+                        <div class="cert-actions">
+                            <button class="btn-ghost" id="cert-prev" type="button">← Précédent</button>
+                            <button class="btn-primary" id="cert-save-next" type="button">Enregistrer et continuer →</button>
+                        </div>
+
+                        <div class="cert-preview">
+                            <div class="cert-preview-head">
+                                <h3>Aperçu du brouillon</h3>
+                                <button class="btn-ghost-line" id="cert-refresh-preview" type="button">Rafraîchir</button>
+                            </div>
+                            <pre class="cert-preview-body" id="cert-preview-body">Aucun aperçu pour le moment.</pre>
+                            <div class="cert-alerts" id="cert-alerts"></div>
+                            <div class="cert-finalize">
+                                <label>
+                                    <input type="checkbox" id="cert-force"> Forcer la finalisation malgré les alertes bloquantes
+                                </label>
+                                <button class="btn-primary" id="cert-finalize" type="button">Sceller et sauvegarder</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Modale : ajout d'un manager -->
+        <div class="modal" id="modal-new-manager" role="dialog" aria-modal="true" aria-labelledby="modal-new-manager-title" hidden>
+            <div class="modal-backdrop" data-close-modal></div>
+            <div class="modal-panel">
+                <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
+                <h2 id="modal-new-manager-title">Ajouter un manager</h2>
+                <p class="cert-docs-help">Si plusieurs managers ont encadré cette personne, créez-en un par période. Les réponses seront consolidées et les divergences arbitrées par vous.</p>
+                <form id="form-new-manager" class="form-grid" novalidate>
+                    <label class="field field--full">
+                        <span>Nom et prénom du manager <em aria-hidden="true">*</em></span>
+                        <input type="text" name="nom" required autocomplete="off" placeholder="Prénom Nom">
+                    </label>
+                    <label class="field field--full">
+                        <span>Fonction</span>
+                        <input type="text" name="fonction" autocomplete="off" placeholder="Ex. Directrice des opérations">
+                    </label>
+                    <label class="field">
+                        <span>Période — début (JJ.MM.AAAA)</span>
+                        <input type="text" name="periode_debut" autocomplete="off" placeholder="Ex. 01.01.2020">
+                    </label>
+                    <label class="field">
+                        <span>Période — fin (JJ.MM.AAAA, vide = en cours)</span>
+                        <input type="text" name="periode_fin" autocomplete="off">
+                    </label>
+                    <div class="field field--full form-actions">
+                        <button type="submit" class="btn-primary">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modale : création de dossier -->
+        <div class="modal" id="modal-new-dossier" role="dialog" aria-modal="true" aria-labelledby="modal-new-dossier-title" hidden>
+            <div class="modal-backdrop" data-close-modal></div>
+            <div class="modal-panel">
+                <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
+                <h2 id="modal-new-dossier-title">Nouveau dossier collaborateur</h2>
+                <form id="form-new-dossier" class="form-grid" novalidate>
+                    <label class="field">
+                        <span>Civilité</span>
+                        <select name="civilite">
+                            <option value="">—</option>
+                            <option value="Madame">Madame</option>
+                            <option value="Monsieur">Monsieur</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Accords <em aria-hidden="true">*</em></span>
+                        <select name="genre" required>
+                            <option value="f">Féminin</option>
+                            <option value="m">Masculin</option>
+                            <option value="inclusif">Inclusif (Elle·Il)</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Prénom <em aria-hidden="true">*</em></span>
+                        <input type="text" name="prenom" required autocomplete="off">
+                    </label>
+                    <label class="field">
+                        <span>Nom <em aria-hidden="true">*</em></span>
+                        <input type="text" name="nom" required autocomplete="off">
+                    </label>
+                    <label class="field">
+                        <span>Type de document</span>
+                        <select name="type_document">
+                            <option value="certificat_final">Certificat final</option>
+                            <option value="certificat_intermediaire">Certificat intermédiaire</option>
+                            <option value="attestation">Attestation de travail</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Langue</span>
+                        <select name="langue">
+                            <option value="fr">Français</option>
+                            <option value="de">Allemand</option>
+                            <option value="en">Anglais</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Date de naissance</span>
+                        <input type="text" name="date_naissance" autocomplete="off" placeholder="JJ.MM.AAAA (ex. 15.03.1985)">
+                    </label>
+                    <label class="field">
+                        <span>Lieu d'origine</span>
+                        <input type="text" name="lieu_origine" autocomplete="off" placeholder="Ex. Lausanne VD">
+                        <small class="field-help">Commune d'origine suisse (figure sur la pièce d'identité). Pour une personne non suisse : laisser vide ou indiquer la nationalité.</small>
+                    </label>
+                    <div class="field field--full form-actions">
+                        <button type="submit" class="btn-primary">Créer le dossier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Vue premier lancement (wizard de création d'entité) -->
+        <section class="wizard" id="view-wizard" hidden>
+            <div class="wizard-card">
+                <div class="wizard-step-indicator">Bienvenue</div>
+                <h1>Créons votre première entité</h1>
+                <p class="wizard-subtitle">
+                    Une entité = une société pour laquelle vous générez des documents
+                    (avec son logo, sa signature, son adresse). Vous pourrez en ajouter d'autres
+                    plus tard dans les paramètres.
+                </p>
+
+                <form id="form-entity" class="form-grid" novalidate>
+                    <label class="field field--full">
+                        <span>Nom de la société <em aria-hidden="true">*</em></span>
+                        <input type="text" name="nom" required autocomplete="off" placeholder="Ex. Horlogerie du Léman SA">
+                    </label>
+                    <label class="field">
+                        <span>Forme juridique</span>
+                        <input type="text" name="forme_juridique" autocomplete="off" placeholder="SA, Sàrl, association…">
+                    </label>
+                    <label class="field">
+                        <span>Téléphone</span>
+                        <input type="tel" name="telephone" autocomplete="off" placeholder="+41 22 000 00 00">
+                    </label>
+                    <label class="field field--full">
+                        <span>Adresse</span>
+                        <input type="text" name="adresse" autocomplete="off" placeholder="Rue, NPA, Ville">
+                    </label>
+                    <label class="field field--full">
+                        <span>E-mail RH</span>
+                        <input type="email" name="email" autocomplete="off" placeholder="rh@votre-societe.ch">
+                    </label>
+                    <label class="field">
+                        <span>Signataire (nom)</span>
+                        <input type="text" name="signataire_nom" autocomplete="off" placeholder="Prénom Nom">
+                    </label>
+                    <label class="field">
+                        <span>Signataire (fonction)</span>
+                        <input type="text" name="signataire_fonction" autocomplete="off" placeholder="Responsable RH">
+                    </label>
+                    <div class="field field--full form-actions">
+                        <button type="submit" class="btn-primary">Créer l'entité</button>
+                        <span class="form-hint">Logo et signature se déposent ensuite dans le dossier de l'entité.</span>
+                    </div>
+                </form>
             </div>
         </section>
     </main>
 
     <!-- ================ STATUS BAR ================ -->
-    <footer class="status-bar" id="status-bar">
+    <footer class="status-bar" id="status-bar" aria-live="polite">
         <div class="status-item" id="status-llm">
             <span class="status-dot status-dot--pending"></span>
             <span class="status-label">IA locale&nbsp;: <span class="status-value">vérification…</span></span>
@@ -69,34 +336,37 @@
             <span class="status-label">Base juridique&nbsp;: <span class="status-value">—</span></span>
         </div>
         <div class="status-item status-item--offline">
-            <svg viewBox="0 0 14 14" width="12" height="12" fill="currentColor"><path d="M7 1a3 3 0 0 0-3 3v2H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3zm-2 5V4a2 2 0 1 1 4 0v2H5z"/></svg>
+            <svg viewBox="0 0 14 14" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M7 1a3 3 0 0 0-3 3v2H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3zm-2 5V4a2 2 0 1 1 4 0v2H5z"/></svg>
             <span class="status-label">Hors ligne (Sécurisé)</span>
         </div>
         <div class="status-item status-item--version">v0.1.0</div>
     </footer>
 
+    <!-- ================ TOASTS ================ -->
+    <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
     <!-- ================ MODALS ================ -->
-    <div class="modal" id="modal-llm-help" hidden>
+    <div class="modal" id="modal-llm-help" role="dialog" aria-modal="true" aria-labelledby="modal-llm-help-title" hidden>
         <div class="modal-backdrop" data-close-modal></div>
         <div class="modal-panel">
             <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
-            <h2>LM Studio n'est pas détecté</h2>
+            <h2 id="modal-llm-help-title">LM Studio n'est pas détecté</h2>
             <ol class="steps">
                 <li>Ouvrez l'application <strong>LM Studio</strong> sur votre ordinateur.</li>
-                <li>Assurez-vous d'avoir chargé le modèle <strong>Qwen 3.5 9B</strong> (bouton « Load model »).</li>
-                <li>Dans l'onglet <strong>Developer</strong>, cliquez sur <strong>« Start Server »</strong>.</li>
+                <li>Chargez un modèle (bouton <strong>Load model</strong>) — par exemple Qwen 3 8B Instruct.</li>
+                <li>Dans l'onglet <strong>Developer</strong>, cliquez sur <strong>Start Server</strong>.</li>
                 <li>Revenez ici et cliquez sur <em>Réessayer</em>.</li>
             </ol>
             <button class="btn-primary" id="btn-retry-llm">Réessayer</button>
         </div>
     </div>
 
-    <div class="modal" id="modal-module-preview" hidden>
+    <div class="modal" id="modal-module-preview" role="dialog" aria-modal="true" aria-labelledby="preview-title" hidden>
         <div class="modal-backdrop" data-close-modal></div>
         <div class="modal-panel modal-panel--lg">
             <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
             <div class="preview-header">
-                <div class="preview-icon" id="preview-icon"></div>
+                <div class="preview-icon" id="preview-icon" aria-hidden="true"></div>
                 <div>
                     <h2 id="preview-title">Module</h2>
                     <p id="preview-desc" class="preview-desc"></p>
@@ -108,6 +378,119 @@
                     son implémentation sera livrée dans une prochaine phase du projet.
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-settings" role="dialog" aria-modal="true" aria-labelledby="modal-settings-title" hidden>
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-panel">
+            <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
+            <h2 id="modal-settings-title">Paramètres</h2>
+
+            <section class="settings-section">
+                <h3>Apparence</h3>
+                <div class="settings-row">
+                    <label for="setting-theme">Thème</label>
+                    <select id="setting-theme">
+                        <option value="auto">Automatique (suivre le système)</option>
+                        <option value="light">Clair</option>
+                        <option value="dark">Sombre</option>
+                    </select>
+                </div>
+                <div class="settings-row">
+                    <label for="setting-color">Couleur principale</label>
+                    <div class="color-picker-row">
+                        <input type="color" id="setting-color" value="#6B4AAF">
+                        <code id="setting-color-hex">#6B4AAF</code>
+                        <button type="button" class="btn-ghost-line" id="setting-color-reset">Violet ARHIANE</button>
+                    </div>
+                </div>
+                <p class="settings-help">
+                    S'applique à l'interface (boutons, accents) et aux PDF générés
+                    (bandeau du questionnaire manager).
+                </p>
+            </section>
+
+            <section class="settings-section">
+                <h3>Entités (logo &amp; signature)</h3>
+                <ul class="entity-asset-list" id="entity-asset-list">
+                    <li class="cert-empty">Chargement…</li>
+                </ul>
+                <p class="settings-help">
+                    Le logo apparaîtra en en-tête des PDF générés. La signature sera utilisée
+                    lors de l'export DOCX des certificats (fonctionnalité à venir).
+                    Formats acceptés : PNG, JPG, WEBP.
+                </p>
+            </section>
+
+            <section class="settings-section">
+                <h3>Audit &amp; conformité LPD</h3>
+                <div class="settings-row settings-row--checkbox">
+                    <label for="setting-audit-full">
+                        <input type="checkbox" id="setting-audit-full">
+                        Journaliser le contenu complet des prompts et réponses
+                    </label>
+                </div>
+                <p class="settings-help">
+                    Désactivé par défaut. Si activé, le fichier d'audit quotidien
+                    enregistrera le texte intégral — à n'activer qu'avec accord du DPO.
+                </p>
+            </section>
+
+            <section class="settings-section">
+                <h3>Dossiers du projet</h3>
+                <div class="settings-folders">
+                    <button type="button" class="btn-ghost-line" data-open-folder="entities">Entités</button>
+                    <button type="button" class="btn-ghost-line" data-open-folder="base_juridique">Base juridique</button>
+                    <button type="button" class="btn-ghost-line" data-open-folder="templates">Modèles Word</button>
+                    <button type="button" class="btn-ghost-line" data-open-folder="outputs">Documents générés</button>
+                    <button type="button" class="btn-ghost-line" data-open-folder="logs">Journal (LPD)</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modale : édition d'une entité (placée en dernier pour passer au-dessus des autres modales) -->
+    <div class="modal" id="modal-edit-entity" role="dialog" aria-modal="true" aria-labelledby="modal-edit-entity-title" hidden>
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-panel">
+            <button class="modal-close" data-close-modal aria-label="Fermer">×</button>
+            <h2 id="modal-edit-entity-title">Modifier l'entité</h2>
+            <form id="form-edit-entity" class="form-grid" novalidate>
+                <input type="hidden" name="entity_id">
+                <label class="field field--full">
+                    <span>Nom de la société <em aria-hidden="true">*</em></span>
+                    <input type="text" name="nom" required autocomplete="off">
+                </label>
+                <label class="field">
+                    <span>Forme juridique</span>
+                    <input type="text" name="forme_juridique" autocomplete="off" placeholder="SA, Sàrl, association…">
+                </label>
+                <label class="field">
+                    <span>Téléphone</span>
+                    <input type="tel" name="telephone" autocomplete="off">
+                </label>
+                <label class="field field--full">
+                    <span>Adresse</span>
+                    <input type="text" name="adresse" autocomplete="off">
+                </label>
+                <label class="field field--full">
+                    <span>E-mail RH</span>
+                    <input type="email" name="email" autocomplete="off">
+                </label>
+                <label class="field">
+                    <span>Signataire (nom)</span>
+                    <input type="text" name="signataire_nom" autocomplete="off">
+                </label>
+                <label class="field">
+                    <span>Signataire (fonction)</span>
+                    <input type="text" name="signataire_fonction" autocomplete="off">
+                </label>
+                <div class="field field--full form-actions">
+                    <button type="button" class="btn-ghost-line" data-close-modal>Annuler</button>
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                </div>
+            </form>
         </div>
     </div>
 

@@ -1,0 +1,7 @@
+# Dépendances dev uniquement — jamais embarquées dans le package utilisateur.
+
+-r requirements.txt
+
+pytest==8.3.3
+pytest-mock==3.14.0
+ruff==0.6.9

@@ -1,12 +1,14 @@
 {
     "lm_studio_url": "http://localhost:1234/v1",
-    "lm_studio_model": "qwen-3.5-9b",
+    "lm_studio_model": "",
     "lm_studio_timeout": 120,
-
+    "lm_studio_connect_timeout": 3,
     "temperature_factuel": 0.1,
     "temperature_neutre": 0.3,
     "temperature_creatif": 0.7,
-
     "langue": "fr",
-    "entite_active": ""
+    "entite_active": "entite_demo",
+    "theme": "dark",
+    "audit_log_prompts": false,
+    "couleur_primaire": "#6B4AAF"
 }

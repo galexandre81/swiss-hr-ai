@@ -1,0 +1,21 @@
+Bibliothèque allemande (DE) — à produire.
+
+Structure à respecter (identique à fr/formulations_validees.json) :
+  - mêmes clés de critères ;
+  - 5 niveaux par critère (1 = mauvais, 5 = excellent) ;
+  - plusieurs variantes par niveau pour éviter les répétitions.
+
+Repères lexicaux traditionnels de l'échelle allemande :
+  5 → « zu unserer vollsten Zufriedenheit »
+  4 → « zu unserer vollen Zufriedenheit »
+  3 → « zu unserer Zufriedenheit »
+  2 → variantes factuelles (ÉVITER « hat sich bemüht »)
+  1 → formulations factuelles documentées
+
+La blacklist DE doit notamment intercepter :
+  « hat sich bemüht », « war stets bemüht »,
+  « hat die Aufgaben mit Fleiss erledigt » sans qualificatif de résultat,
+  etc.
+
+Ne PAS traduire littéralement le fichier FR : chaque langue doit être
+validée juridiquement pour son marché.
