@@ -165,7 +165,7 @@ class EditorModuleBase(ModuleBase):
             return False
         if isinstance(value, str):
             return bool(value.strip())
-        if isinstance(value, (list, dict)):
+        if isinstance(value, list | dict):
             return len(value) > 0
         return True
 
