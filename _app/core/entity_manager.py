@@ -23,6 +23,12 @@ def slugify(text: str, *, fallback: str = "entite") -> str:
     return (slug or fallback)[:48]
 
 
+# Politiques d'écriture inclusive supportées (module Cahier des charges + autres).
+POLITIQUES_INCLUSIF = frozenset({"doublets", "neutre", "point_median", "desactive"})
+# Langues principales supportées.
+LANGUES_PRINCIPALES = frozenset({"fr", "de"})
+
+
 @dataclass
 class Entity:
     id: str
@@ -36,6 +42,12 @@ class Entity:
     signataire_fonction: str = ""
     logo_fichier: str = "logo.png"
     signature_fichier: str = "signature.png"
+    # Champs transverses utilisés par plusieurs modules.
+    # Introduits pour le module Cahier des charges, rétrocompatibles.
+    langue_principale: str = "fr"  # "fr" | "de"
+    politique_inclusif: str = "neutre"  # "doublets" | "neutre" | "point_median" | "desactive"
+    cct_applicable: str = ""  # identifiant CCT (ex: "hotellerie_restauration"), vide si aucune
+    competences_socles: list[str] = field(default_factory=list)
     raw: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -56,6 +68,10 @@ class Entity:
             "email": self.email,
             "signataire_nom": self.signataire_nom,
             "signataire_fonction": self.signataire_fonction,
+            "langue_principale": self.langue_principale,
+            "politique_inclusif": self.politique_inclusif,
+            "cct_applicable": self.cct_applicable,
+            "competences_socles": list(self.competences_socles),
             "logo_present": self.logo_path.exists(),
             "signature_presente": self.signature_path.exists(),
         }
@@ -98,6 +114,30 @@ class EntityManager:
             except json.JSONDecodeError as exc:
                 self._log.error(f"config.json invalide dans {sub.name} : {exc}")
                 continue
+            # Normalisation des champs transverses optionnels (rétrocompat :
+            # une config.json antérieure ne contient rien pour ces clés).
+            langue = raw.get("langue_principale", "fr")
+            if langue not in LANGUES_PRINCIPALES:
+                self._log.warning(
+                    f"Langue principale inconnue dans {sub.name} : {langue!r}. "
+                    f"Repli sur 'fr'."
+                )
+                langue = "fr"
+            politique = raw.get("politique_inclusif", "neutre")
+            if politique not in POLITIQUES_INCLUSIF:
+                self._log.warning(
+                    f"Politique inclusif inconnue dans {sub.name} : {politique!r}. "
+                    f"Repli sur 'neutre'."
+                )
+                politique = "neutre"
+            socles = raw.get("competences_socles", [])
+            if not isinstance(socles, list):
+                self._log.warning(
+                    f"competences_socles non-liste dans {sub.name} — ignoré."
+                )
+                socles = []
+            socles = [str(s).strip() for s in socles if str(s).strip()]
+
             entity = Entity(
                 id=raw.get("id", sub.name),
                 nom=raw.get("nom", sub.name),
@@ -110,6 +150,10 @@ class EntityManager:
                 signataire_fonction=raw.get("signataire", {}).get("fonction", ""),
                 logo_fichier=raw.get("logo_fichier", "logo.png"),
                 signature_fichier=raw.get("signature_fichier", "signature.png"),
+                langue_principale=langue,
+                politique_inclusif=politique,
+                cct_applicable=str(raw.get("cct_applicable", "") or "").strip(),
+                competences_socles=socles,
                 raw=raw,
             )
             self._entities[entity.id] = entity
@@ -136,6 +180,18 @@ class EntityManager:
             raise ValueError("Chemin d'entité invalide.")
         target.mkdir(parents=True, exist_ok=False)
 
+        # Champs transverses optionnels à la création. Valeurs par défaut si absents.
+        langue = (data.get("langue_principale") or "fr").strip()
+        if langue not in LANGUES_PRINCIPALES:
+            langue = "fr"
+        politique = (data.get("politique_inclusif") or "neutre").strip()
+        if politique not in POLITIQUES_INCLUSIF:
+            politique = "neutre"
+        socles_in = data.get("competences_socles") or []
+        if not isinstance(socles_in, list):
+            socles_in = []
+        socles = [str(s).strip() for s in socles_in if str(s).strip()]
+
         config = {
             "id": slug,
             "nom": nom,
@@ -149,6 +205,10 @@ class EntityManager:
             },
             "logo_fichier": "logo.png",
             "signature_fichier": "signature.png",
+            "langue_principale": langue,
+            "politique_inclusif": politique,
+            "cct_applicable": (data.get("cct_applicable") or "").strip(),
+            "competences_socles": socles,
         }
         (target / "config.json").write_text(
             json.dumps(config, indent=2, ensure_ascii=False) + "\n",
@@ -250,7 +310,7 @@ class EntityManager:
             if not nom:
                 raise ValueError("Le nom de l'entité est obligatoire.")
             current["nom"] = nom
-        for key in ("forme_juridique", "adresse", "telephone", "email"):
+        for key in ("forme_juridique", "adresse", "telephone", "email", "cct_applicable"):
             if key in data:
                 current[key] = (data.get(key) or "").strip()
         if "signataire_nom" in data or "signataire_fonction" in data:
@@ -259,6 +319,29 @@ class EntityManager:
                 current["signataire"]["nom"] = (data.get("signataire_nom") or "").strip()
             if "signataire_fonction" in data:
                 current["signataire"]["fonction"] = (data.get("signataire_fonction") or "").strip()
+        if "langue_principale" in data:
+            langue = (data.get("langue_principale") or "fr").strip()
+            if langue not in LANGUES_PRINCIPALES:
+                raise ValueError(
+                    f"Langue principale invalide : {langue!r}. "
+                    f"Valeurs admises : {sorted(LANGUES_PRINCIPALES)}."
+                )
+            current["langue_principale"] = langue
+        if "politique_inclusif" in data:
+            politique = (data.get("politique_inclusif") or "neutre").strip()
+            if politique not in POLITIQUES_INCLUSIF:
+                raise ValueError(
+                    f"Politique inclusif invalide : {politique!r}. "
+                    f"Valeurs admises : {sorted(POLITIQUES_INCLUSIF)}."
+                )
+            current["politique_inclusif"] = politique
+        if "competences_socles" in data:
+            socles_in = data.get("competences_socles") or []
+            if not isinstance(socles_in, list):
+                raise ValueError("competences_socles doit être une liste de chaînes.")
+            current["competences_socles"] = [
+                str(s).strip() for s in socles_in if str(s).strip()
+            ]
 
         # On préserve toujours id et fichiers d'assets.
         current["id"] = entity.id

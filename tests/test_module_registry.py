@@ -9,10 +9,20 @@ def test_catalog_yields_disponible_and_a_venir(sandbox):
     reg = ModuleRegistry()
     mods = reg.list_modules()
     assert len(mods) >= 1
-    # certificats est implémenté → disponible ; les autres restent à venir.
+    # Modules effectivement implémentés → "disponible" ; les autres restent
+    # "a_venir". La liste des implémentés évolue au fil des phases de
+    # développement — on la tient à jour ici.
+    implementes = {"certificats", "cahier_des_charges"}
     by_id = {m["id"]: m for m in mods}
-    assert by_id["certificats"]["statut"] == "disponible"
-    assert all(m["statut"] == "a_venir" for m in mods if m["id"] != "certificats")
+    for mid in implementes:
+        assert by_id[mid]["statut"] == "disponible", (
+            f"Module {mid} attendu en 'disponible'"
+        )
+    assert all(
+        m["statut"] == "a_venir"
+        for m in mods
+        if m["id"] not in implementes
+    )
 
 
 def test_implemented_module_overrides_catalog(sandbox, monkeypatch):

@@ -9,6 +9,7 @@ from _app.core.blacklist_detector import (
 )
 from _app.core.config import Config, get_config, save_user_preferences
 from _app.core.dossier_store import Collaborateur, Dossier, DossierStore
+from _app.core.editor_base import EditorAction, EditorModuleBase, EditorSection
 from _app.core.entity_manager import Entity, EntityManager
 from _app.core.formulation_library import FormulationLibrary, LibraryInfo
 from _app.core.llm_client import GenerationCancelled, LLMClient, LLMStatus
@@ -42,6 +43,10 @@ __all__ = [
     # --- Certificats / wizards -----
     "WizardModuleBase",
     "WizardStep",
+    # --- Cahier des charges / éditeur -----
+    "EditorModuleBase",
+    "EditorSection",
+    "EditorAction",
     "DossierStore",
     "Dossier",
     "Collaborateur",
